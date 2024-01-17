@@ -3,7 +3,7 @@ variable "location" {
 }
 
 variable "resource_group_name" {
-    default = "A17"
+    default = "A18"
 }
 
 variable "cognitive_services_name" {

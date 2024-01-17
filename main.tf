@@ -57,7 +57,7 @@ resource "azurerm_cosmosdb_sql_container" "cosmosdb-sql-container" {
 resource "azurerm_cosmosdb_sql_role_definition" "comosdb-role" {
   account_name        = var.cosmodb_account_name
   assignable_scopes   = ["/subscriptions/${var.subscription_id}/resourceGroups/${var.resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/${var.cosmodb_account_name}"]
-  name                = "Cosmos DB Built-in Data Reader"
+  name                = "Cosmos DB Data Reader AI"
   resource_group_name = var.resource_group_name
   type                = "BuiltInRole"
   permissions {
@@ -71,7 +71,7 @@ resource "azurerm_cosmosdb_sql_role_definition" "comosdb-role" {
 resource "azurerm_cosmosdb_sql_role_definition" "cosmosdb-role2" {
   account_name        = var.cosmodb_account_name
   assignable_scopes   = ["/subscriptions/${var.subscription_id}/resourceGroups/${var.resource_group_name}/providers/Microsoft.DocumentDB/databaseAccounts/${var.cosmodb_account_name}"]
-  name                = "Cosmos DB Built-in Data Contributor"
+  name                = "Cosmos DB Data Contributor AI"
   resource_group_name = var.resource_group_name
   type                = "BuiltInRole"
   permissions {
@@ -116,13 +116,8 @@ resource "azurerm_mssql_database_extended_auditing_policy" "mssql-policy" {
   ]
 }
 
-resource "azurerm_mssql_database_extended_auditing_policy" "mssql-policy1" {
-  database_id            = "/subscriptions/${var.subscription_id}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Sql/servers/${var.mssql_server_name}/databases/master"
-  enabled                = false
-  log_monitoring_enabled = false
-}
 
-resource "azurerm_mssql_server_microsoft_support_auditing_policy" "mssql-policy2" {
+resource "azurerm_mssql_server_microsoft_support_auditing_policy" "mssql-policy1" {
   enabled                = false
   log_monitoring_enabled = false
   server_id              = "/subscriptions/${var.subscription_id}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Sql/servers/${var.mssql_server_name}"
@@ -131,14 +126,14 @@ resource "azurerm_mssql_server_microsoft_support_auditing_policy" "mssql-policy2
   ]
 }
 
-resource "azurerm_mssql_server_transparent_data_encryption" "mssql-policy3" {
+resource "azurerm_mssql_server_transparent_data_encryption" "mssql-policy4" {
   server_id = "/subscriptions/${var.subscription_id}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Sql/servers/${var.mssql_server_name}"
   depends_on = [
     azurerm_mssql_server.mssql-server,
   ]
 }
 
-resource "azurerm_mssql_server_extended_auditing_policy" "mssql-policy4" {
+resource "azurerm_mssql_server_extended_auditing_policy" "mssql-policy5" {
   enabled                = false
   log_monitoring_enabled = false
   server_id              = "/subscriptions/${var.subscription_id}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Sql/servers/${var.mssql_server_name}"
@@ -180,15 +175,24 @@ resource "azurerm_storage_account" "storage-account" {
 resource "azurerm_storage_container" "storage-container" {
   name                 = "books"
   storage_account_name = var.storage_account_name
+  depends_on = [
+    azurerm_storage_account.storage-account
+  ]
 }
 
 resource "azurerm_storage_container" "storage-container1" {
   name                 = "cord19"
   storage_account_name = var.storage_account_name
+   depends_on = [
+    azurerm_storage_account.storage-account
+  ]
 }
 
 resource "azurerm_storage_container" "storage-container2" {
   name                 = "mixed"
   storage_account_name = var.storage_account_name
+   depends_on = [
+    azurerm_storage_account.storage-account
+  ]
 }
 
