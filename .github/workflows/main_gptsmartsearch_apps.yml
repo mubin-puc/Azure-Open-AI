@@ -15,7 +15,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: Mubins-MacBook-Air
     outputs:
       env-name: ${{steps.set-deploy-env.outputs.DEPLOY_ENVIRONMENT}}
     steps:
