@@ -104,6 +104,10 @@ jobs:
         with:
           name: python-backend-app
           path: ./backend
+
+      - uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
           
       - name: 'Deploy backend to Azure Web App'
         uses: azure/webapps-deploy@v2
