@@ -15,7 +15,7 @@ on:
 
 jobs:
   build:
-    runs-on: Mubins-MacBook-Air
+    runs-on: self-hosted
     outputs:
       env-name: ${{steps.set-deploy-env.outputs.DEPLOY_ENVIRONMENT}}
     steps:
