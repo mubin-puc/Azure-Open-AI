@@ -1,0 +1,24 @@
+steps:
+open vs code
+go to the path your project exists
+az login
+terraform init
+terraform plan
+terraform apply
+
+you will have to add values initially
+subscription id
+location
+resource group name
+app id
+app password
+tenant id
+in modules/deployment1:
+sql admin login
+sql admin password
+subscription id
+
+once all the resources are created:
+run terraform commands once more, this time pass bot botDirectLineChannelKey value from your portal
+
+terraform destroy(deletion) #if you want to delete everything run this command
